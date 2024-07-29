@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user profile</title>
+    <link rel="stylesheet" href="./element/breadcrumbs/breadcrumbs.css">
+    <link rel="stylesheet" href="./element/PrimaryElement.css">
+    <link rel="stylesheet" href="./element/user_avatar.css">
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; /* 使內距和邊框不會增加元素的寬度 */
+        }
+
+        /* 頁首 */
+        header {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        #web_title {
+            font-size: 24px;
+            flex-grow: 1;
+            color:#ffffff
+        }
+
+        /* 選單 */
+        nav {
+            display: flex;
+        }
+
+        /* 選單 子物件 */
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 15px;
+        }
+
+        /* 用户頭像周圍 */
+        
+        
+        /* 頁面主體 */
+        body{
+            background-color: #000;
+        }
+    </style>
+</head>
+<body data-page="home">
+    <header>
+        <!-- 頁首 -->
+        <img src="./element/GDSC_logo.png" alt="Logo" width="90px" height="auto">
+        <h1 id="web_title">NSYSU GDSC Member</h1>
+        <nav>
+          <a href="#contact">Contact</a>
+        </nav>
+    
+        <!-- 用户頭像 -->
+        <div class="user-avatar">
+          <img src="https://via.placeholder.com/40" alt="User Avatar">
+          <span>Username</span>
+        </div>
+    </header>
+
+
+    <!-- main body -->
+
+    <ul class="breadcrumb" id="breadcrumb">
+    </ul>
+    <div class="main_box">
+        <div class="row justify-content-center">
+              <h2 class="text-center">Login</h2>
+              <form method="POST" action="{{ url_for('login') }}">
+                  <div class="form-group">
+                      <label for="username">Username:</label>
+                      <input type="text" class="form-control" id="username" name="username">
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password:</label>
+                      <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Login</button>
+              </form>
+        </div>
+        
+    </div>
+    
+    <script>
+        /* ---------------breadcrumbs navigator--------------- */
+        const breadcrumbData = [
+          { text: 'Home', url: "./home.html" },
+          { text: 'Login', url: './login.html'}
+        ];
+        /*---------------breadcrumbs navigator---------------*/
+      </script>
+      <script src="./element/breadcrumbs/breadcrumbs.js"></script>
+</body>
+</html>
+
+
+
+
