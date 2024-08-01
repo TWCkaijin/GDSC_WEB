@@ -20,7 +20,7 @@ function App() {
 
 	const getUser = async () => {
 		try {
-			const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+			const url = `${REACT_APP_API_URL}/auth/login/success`;
 			const { data } = await axios.get(url, { withCredentials: true });
 			setUser(data.user._json);
 			console.log("Get User Success!");
@@ -37,7 +37,8 @@ function App() {
 		<div className="container">
 			{location.pathname !== '/login'&&<Header 
 												clubName="GDSC"
-												userAvatar={user ? user.avatar : 'https://via.placeholder.com/40'}
+												userAvatar={user ? user.picture : 'https://via.placeholder.com/40'}
+												islogin={user ? true : false}
 											/>}
 				<Routes>
 					<Route 

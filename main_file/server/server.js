@@ -11,6 +11,7 @@ const Database = require("./init_db");//
 
 // Route imports
 const authRoute = require("./routes/auth");
+const previewRoute = require("./routes/info");
 //const Member = require("./routes/member");
 
 
@@ -39,7 +40,7 @@ app.use(
 );
 
 app.use('/auth', authRoute);
-
+app.use('/info', previewRoute);
 
 mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB');
@@ -52,4 +53,4 @@ mongoose.connection.once('open', async () => {
 
 mongoose.connection.on('error', (err) => {
 	console.error('MongoDB connection error:', err);
-  });
+});

@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    padding: 10px 20px;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .club-name {
+    font-size: 24px;
+    color: #03a9f4;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-button {
+    margin-right: 10px;
+    background-color: #03a9f4;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .user-avatar {
+    height: 40px;
+    border-radius: 50%;
+  }

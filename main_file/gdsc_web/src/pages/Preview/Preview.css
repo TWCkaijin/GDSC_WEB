@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #282c34;
+    color: #ffffff;
+  }
+  
+  a {
+    color: #03a9f4;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .Slider-container{
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    z-index: 2;
+  }
+
+  .Slider-container img{
+    width: 400px;
+    height: auto;
+    margin:auto;
+  }
+
+  .Slider-container h2 {
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    margin: 20px 0;
+    justify-content: center;
+  }
+
+  .carousel-container h3 {
+    position: center;
+    font-size: 24px;
+    color: #c90c0c;
+    text-align: center;
+    margin: 20px 0;
+    justify-content: center;
+  }
+
+  .center-slide {
+    transform: scale(1.2); /* 放大中心元素 */
+    transition: transform 0.3s ease;
+  }
+  
+  .small-slide {
+    transform: scale(0.8); /* 縮小非中心元素 */
+    transition: transform 0.3s ease;
+  }

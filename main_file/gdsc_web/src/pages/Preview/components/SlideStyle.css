@@ -1,0 +1,28 @@
+.Clickable-div {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.swiper-slide {
+    transition: opacity 0.5s ease;
+}
+
+.swiper-slide-faded {
+    opacity: 0.8; 
+}
+
+.swiper-pagination {
+    bottom: 0px !important; /* 調整這個值來控制 dot 的垂直位置 */
+}
+
+.Clickable-div h3 {
+    position: center;
+    font-size: 24px;
+    color: #cf2929;
+    text-align: center;
+    margin-top:10px;
+    margin-bottom: 40px;
+    justify-content: center;
+}

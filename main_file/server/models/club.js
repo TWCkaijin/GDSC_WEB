@@ -2,14 +2,18 @@ const mongoose = require('mongoose');
 
 const club_schema = new mongoose.Schema({
 	//club information
-	club_name: String,
+	name: String,
+	year: String, //year fo the current term
 	core_member: [String], //core member list
 	teacher: [String], //teacher list
 	manager: [String], //manager list
 	student: [String], //student list
-	dc: [String], //dc list
+	dc: String, //dc list
 	web_site: String, //club website
+	ig: String, //club instagram
 	
+	current_course: [String,Date,String], //course name, start date, picture
+
 	project: [{
 		project_name: String,
 		leader: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

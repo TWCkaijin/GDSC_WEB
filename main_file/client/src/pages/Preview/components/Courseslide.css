@@ -1,0 +1,8 @@
+.slick-dots {
+  bottom: 0 px;
+}
+
+.slick-prev img, .slick-next img{
+  z-index: 1;
+  size: 20%;
+}
