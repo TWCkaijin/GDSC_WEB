@@ -1,45 +1,45 @@
-import styles from "./styles.module.css";
-//import Profile from "../SetNick"; <Route path="/setnick" element={<Profile />} />
-//import { Route } from "react-router-dom";
+import { auth } from "../../config/firebase"
+import { useNavigate } from "react-router-dom";
 
-function Home(userDetails) {
-	const user = userDetails.user;
-	const logout = () => {
-		window.open(`${REACT_APP_API_URL}/auth/logout`, "_self");
+import "./home.css"
+
+const Home = () => {	
+	const navigate = useNavigate();
+	const logout = async () => {
+		await auth.signOut();
+		navigate("/");
 	};
 
+
+
+
 	return (
-		<div className={styles.container}>
-			<h1 className={styles.heading}>Home</h1>
-			<div className={styles.form_container}>
-				<div className={styles.left}>
-					<img className={styles.img} src="./images/profile.jpg" alt="login" />
+		<div>
+			<ul class="breadcrumb" id="breadcrumb">
+				This is bread crumb placeholder
+			</ul>
+			<div class="main_box-list">
+				<div class="main_box">
+					<img src="https://via.placeholder.com/40" alt="action"/>
+					<p>Club form</p>
 				</div>
-				<div className={styles.right}>
-					<h2 className={styles.from_heading}>Profile</h2>
-					<img
-						src={user.picture}
-						alt="profile"
-						className={styles.profile_img}
-					/>
-					<input
-						type="text"
-						defaultValue={user.name}
-						className={styles.input}
-						placeholder="UserName"
-					/>
-					<input
-						type="text"
-						defaultValue={user.email}
-						className={styles.input}
-						placeholder="Email"
-					/>
-					<button className={styles.btn} onClick={logout}>
-						Log Out
-					</button>
-					
+				<div class="main_box" href="#box">
+					<img src="https://via.placeholder.com/40" alt="action"/>
+					<p>User Profile</p>
+				</div>
+				<div class="cutline"></div>
+				<div class="main_box" href="#box">
+					<img src="https://via.placeholder.com/40" alt="action"/>
+					<p>secbox</p>
+				</div>
+				<div class="cutline"></div>
+				<div class="main_box" href="#payment">
+					<div>
+
+					</div>
 				</div>
 			</div>
+			<button class="floating-button" id="_signin_floatingButton">+</button>
 		</div>
 	);
 }

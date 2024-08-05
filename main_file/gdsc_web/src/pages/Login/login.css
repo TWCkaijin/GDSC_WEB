@@ -8,11 +8,12 @@
     align-items: center;
     justify-content: center;
     margin-top: 80px;
-    height: 60px;
+    white-space: nowrap;
 }
 
 .heading h1{
     margin: 0;
+    
     
 }
 
@@ -25,15 +26,46 @@
 }
 
 .form_container {
+    position: relative;
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-content: center;
     width: 800px;
-    height: 450px;
+    height: 400px;
     box-shadow: 3px 4px 36px -6px rgba(0, 0, 0, 0.644);
     border-radius: 50px;
     background-color:#2a303b ;
+}
+
+.login-backward {
+    position: absolute;
+    top: 1rem; 
+    left: 1rem;
+    width: auto;
+}
+
+.login-backward-button{
+    display: flex;
+    position: absolute; 
+    align-items: center;
+    top: auto; 
+    left: 1rem;
+    cursor: pointer;
+}
+
+.login-backward-button img{
+    width: 1rem;
+}
+
+.login-backward-button h1{
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+
+.form_container h1{
+    color: rgb(111, 165, 212);
 }
 
 
@@ -63,7 +95,6 @@
     color: white;
     background-color: #ffc801;
     border-radius: 12px;
-    margin: 10px 0 0 0;
     outline: none;
     border: none;
     cursor: pointer;
@@ -81,7 +112,6 @@
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
     font-size: 16px;
     font-weight: 500;
-    margin: 0 0 20px 0;
     color: #2c444e;
     cursor: pointer;
     display: flex;
@@ -98,4 +128,80 @@
 
 .google_btn > span{
     margin-left: 10px;
+}
+
+.login-other-option{
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 垂直置中 */
+    flex-direction: column;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+}
+.login-other-option p{
+    color: #0a6264;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    text-align: center;
+}
+
+
+
+
+
+.login-other-option-button{
+    color: #000000;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 10px;
+    width: 8rem;
+    height: 3rem;
+}
+
+
+
+@media (max-width: 600px) {
+    .form_container {
+        width: 90%;
+    }
+
+    .form_container h1{
+        font-size: 30px;
+    }
+
+    .heading img{
+        width: 30%;
+    }
+
+    .heading {
+        margin-top: 20px;
+        width: 80%;
+        font-size: 2rem;
+    }
+    
+    .input {
+        width: 100%;
+    }
+    .btn {
+        width: 100%;
+    }
+    .google_btn {
+        width: 60%;
+    }
+    .login-other-option {
+        width: 80%;
+    }
+    .login-other-option-button-container {
+        width: 80%;
+    }
+
+    .login-other-option-button{
+        height: 1.8rem;
+    }
+
+
 }

@@ -5,20 +5,18 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Preview from "./pages/Preview";
-import Header from "./pages/Preview/components/Header";
-import Footer from "./pages/Preview/components/Footer";
-
-
-
+import Header from "./pages/components/Header";
+import Footer from "./pages/components/Footer";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 
 import "./App.css";
 
 function App() {
 	const [user, setUser] = useState(null);
-	let location = useLocation();
 
-	const getUser = async () => {
+	let location = useLocation();
+	/* const getUser = async () => {
 		try {
 			const url = `${REACT_APP_API_URL}/auth/login/success`;
 			const { data } = await axios.get(url, { withCredentials: true });
@@ -27,38 +25,36 @@ function App() {
 		} catch (err) {
 			console.log(err);
 		}
-	};
-
-	useEffect(() => {
-		getUser();
-	}, []);
+	}; */
+	
+	
 
 	return (
 		<div className="container">
-			{location.pathname !== '/login'&&<Header 
-												clubName="GDSC"
-												userAvatar={user ? user.picture : 'https://via.placeholder.com/40'}
-												islogin={user ? true : false}
-											/>}
+			{location.pathname !== '/login'&&<Header/>}
 				<Routes>
 					<Route 
 						exact
 						path="/" 
 						element={<Preview/>} 
 					/>
-					<Route
-						exact
-						path="/Home"
-						element={user ? <Home user={user} /> : <Navigate to="/login" />}
-					/>
+
+					<Route element = {<ProtectedRoutes/>}>
+						<Route
+							exact
+							path="/Home"
+							element={<Home/>}
+						/>
+					</Route>
+					
 					<Route
 						exact
 						path="/login"
-						element={user ? <Navigate to="/Home" /> : <Login />}
+						element={<Login/>}
 					/>
 					
 				</Routes>
-				{location.pathname !== '/login'&&<Footer/>}
+				{location.pathname !== '/Login'&& location.pathname !== '/Home' && <Footer/>}
 		</div>
 	);
 }

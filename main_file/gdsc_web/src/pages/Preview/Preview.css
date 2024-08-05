@@ -14,6 +14,10 @@ body {
     text-decoration: underline;
   }
   
+
+  .preview-body{
+    padding-top: 5rem;
+  }
   
   .Slider-container{
     justify-content: center;
@@ -28,22 +32,22 @@ body {
     margin:auto;
   }
 
-  .Slider-container h2 {
-    font-size: 24px;
-    color: #ffffff;
+  .preview-course-title{
+    font-size: 2rem;
+    color: #db1414;
     text-align: center;
     margin: 20px 0;
     justify-content: center;
   }
 
-  .carousel-container h3 {
-    position: center;
-    font-size: 24px;
-    color: #c90c0c;
+  .preview-project-title{
+    font-size: 2rem;
+    color: #523bd3;
     text-align: center;
     margin: 20px 0;
     justify-content: center;
   }
+
 
   .center-slide {
     transform: scale(1.2); /* 放大中心元素 */

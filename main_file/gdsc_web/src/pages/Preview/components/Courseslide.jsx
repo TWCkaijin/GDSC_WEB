@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {EffectCoverflow, Navigation, Pagination, Autoplay} from "swiper/modules";
+
+import Modal from './Modal';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {EffectCoverflow, Navigation, Pagination, Autoplay} from "swiper/modules";
 import './SlideStyle.css';
-import Modal from './Modal';
+
 
 
 const CourseSlide = ({ Courses = [] }) => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [centerIndex, setCenterIndex] = useState(0);
-  
+
+
+  /* faded slide */
   const handleSlideChange = (swiper) => {
     const slides = swiper.slides;
     const activeIndex = swiper.activeIndex;
@@ -24,10 +28,17 @@ const CourseSlide = ({ Courses = [] }) => {
       }
     });
   };
+  /* faded slide */
 
+
+
+  /* Handle null exception */
   if (!Array.isArray(Courses)) {
     return null;
-  }removeEventListener
+  }removeEventListener;
+  /* Handle null exception */
+
+
 
   return (
     <div>
@@ -43,7 +54,7 @@ const CourseSlide = ({ Courses = [] }) => {
           nextEl:'.swiper-button-next',
           prevEl: '.swiper-button-prev'
         }}
-        autoplay={{ delay: 3000 }}
+        //autoplay={{ delay: 3000 }}
         effect="coverflow"
         coverflowEffect={{
           rotate: 0,
@@ -60,10 +71,10 @@ const CourseSlide = ({ Courses = [] }) => {
         }}
         onSlideChange={handleSlideChange}
       >
-        {Courses.map((course, index) => (
+        {Courses.map((course,index) => (
           <SwiperSlide key={course.id}>
             <div className="Clickable-div" onClick={() => setSelectedCourse(course)}>
-              <img src={course.image} alt={course.name} />
+              <img src={course.image == "" ? 'https://via.placeholder.com/360' : course.image} alt={course.name} />
               <h3>{course.name}</h3>
             </div>
           </SwiperSlide>

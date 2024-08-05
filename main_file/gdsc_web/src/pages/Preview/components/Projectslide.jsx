@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {EffectCoverflow, Navigation, Pagination, Autoplay} from "swiper/modules";
+import Modal from './Modal';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import {EffectCoverflow, Navigation, Pagination, Autoplay} from "swiper/modules";
 import './SlideStyle.css';
-import Modal from './Modal';
 
 
 const ProjectSlide = ({ Projects = [] }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [centerIndex, setCenterIndex] = useState(0);
 
+  /* faded slide */
   const handleSlideChange = (swiper) => {
     const slides = swiper.slides;
     const activeIndex = swiper.activeIndex;
@@ -24,10 +25,17 @@ const ProjectSlide = ({ Projects = [] }) => {
       }
     });
   };
+  /* faded slide */
 
+
+
+  /* Handle null exception */
   if (!Array.isArray(Projects)) {
     return null;
   }removeEventListener
+  /* Handle null exception */
+
+
 
   return (
     <div>
@@ -43,7 +51,7 @@ const ProjectSlide = ({ Projects = [] }) => {
           nextEl:'.swiper-button-next',
           prevEl: '.swiper-button-prev'
         }}
-        autoplay={{ delay: 3000 }}
+        //autoplay={{ delay: 3000 }}
         effect="coverflow"
         coverflowEffect={{
           rotate: 0,
@@ -63,7 +71,7 @@ const ProjectSlide = ({ Projects = [] }) => {
         {Projects.map((project, index) => (
           <SwiperSlide key={project.id}>
             <div className="Clickable-div" onClick={() => setSelectedProject(project)}>
-              <img src={project.image} alt={project.name} />
+              <img src={project.image == "" ? 'https://via.placeholder.com/360' : project.image} alt={project.name} />
               <h3>{project.name}</h3>
             </div>
           </SwiperSlide>

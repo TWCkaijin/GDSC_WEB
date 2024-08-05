@@ -1,5 +1,7 @@
 // src/pages/Home.js
 import React, { useState, useEffect } from 'react';
+import {getDoc, doc} from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 import ProjectSlide from './components/Projectslide';
 import Courselside from './components/Courseslide';
@@ -12,39 +14,39 @@ function Preview() {
   const [courses, setCourses] = useState([]);
 
 
+	/* Get Firestore public info*/
+	const getClubInfo = async() => {
+		const currentmonth = new Date().getMonth()+1;
+		const currentyear = new Date().getFullYear();
+		const formattedYear = `${currentmonth>8 ? currentyear:currentyear}`;
 
+		const docSnap = await getDoc(doc(db, "Clubstatus", formattedYear));
+    const data = docSnap.data();
+    setClubName(data.club_name);
+    setClubYear(formattedYear);
+    setCourses(data.course);
+    setProjects(data.project_info);
+
+	}
+  /* Get Firestore public info*/
 
 
   useEffect(() => {
-    setClubName('Cyberpunk Club');
-    setClubYear('2024');
-    setProjects([
-      { id: 1, name: 'Project 1', image: 'https://via.placeholder.com/360', description: 'Project 1 Description' },
-      { id: 2, name: 'Project 2', image: 'https://via.placeholder.com/360', description: 'Project 2 Description' },
-      { id: 3, name: 'Project 3', image: 'https://via.placeholder.com/360', description: 'Project 3 Description' },
-    ]);
-    setCourses([
-      { id: 3, name: 'Course  3', image: 'https://via.placeholder.com/360', description: 'Course 3 Description' },
-      { id: 4, name: 'Course  4', image: 'https://via.placeholder.com/360', description: 'Course 4 Description' },
-      { id: 5, name: 'Course  5', image: 'https://via.placeholder.com/360', description: 'Course 5 Description' },
-    ]);
-
+    getClubInfo();
   }, []);
 
 
   
   return (
-    <div className="home">
-      <div className="club-info">
+    <div className="preview-body">
+      <div className="Slider-container">
+        <h2 className='preview-course-title'>Courses</h2>
+          <Courselside Courses={courses} />
       </div>
-        <div className="Slider-container">
-          <h2>Courses</h2>
-            <Courselside Courses={courses} />
-        </div>
-        <div className="Slider-container">
-          <h2>Projects</h2>
-            <ProjectSlide Projects={projects} />
-        </div>
+      <div className="Slider-container">
+        <h2 className='preview-project-title'>Projects</h2>
+          <ProjectSlide Projects={projects} />
+      </div>
     </div>
   );
 };
