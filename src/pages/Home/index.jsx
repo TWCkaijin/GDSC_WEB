@@ -10,7 +10,12 @@ const Home = () => {
 		navigate("/");
 	};
 
-
+	const getUserData = async () => {
+		const user = auth?.currentUser;
+		if (user) {
+			console.log("User is signed in");
+		};
+	};
 
 
 	return (
@@ -34,8 +39,19 @@ const Home = () => {
 				</div>
 				<div class="cutline"></div>
 				<div class="main_box" href="#payment">
-					<div>
-
+					<div class="member-status-title" >
+						<h1>成員狀態</h1>
+					</div>
+					<div className="member-status-content">會員: {"PH"}</div>
+					<div className="member-status-sheet">
+						<div className="member-status-first-column">
+							<div className="member-status-content">會員: {"PH"}</div>
+							<div className="member-status-content">會員: {"PH"}</div>
+						</div>
+						<div className="member-status-second-column">
+							<div className="member-status-content">會員: {"PH"}</div>
+							<div className="member-status-content">會員: {"PH"}</div>
+						</div>
 					</div>
 				</div>
 			</div>
