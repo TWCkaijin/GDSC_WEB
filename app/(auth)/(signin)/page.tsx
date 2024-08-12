@@ -1,19 +1,32 @@
-import { Metadata } from 'next';
+'use client';
 import Link from 'next/link';
 import UserAuthForm from '@/components/forms/user-auth-form';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.'
-};
+import { UserAuth } from '../../../types/context/Authcontext';
 
 export default function AuthenticationPage() {
+  const authContext = UserAuth();
+  if (!authContext) {
+    return <div>Loading...</div>;
+  }
+  const { user, googleSignIn, logOut } = authContext;
+
+  const handleGoogleSignIn = async () => {
+    try {
+      if (typeof googleSignIn === 'function') {
+        googleSignIn();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
-        href="/examples/authentication"
+        href=""
         className={cn(
           buttonVariants({ variant: 'ghost' }),
           'absolute right-4 top-4 hidden md:right-8 md:top-8'
@@ -60,6 +73,9 @@ export default function AuthenticationPage() {
             </p>
           </div>
           <UserAuthForm />
+          {/* <button onClick={handleGoogleSignIn} className="btn btn-primary">
+            Continue with Google
+          </button> */}
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{' '}
             <Link

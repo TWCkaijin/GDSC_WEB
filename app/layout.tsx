@@ -7,6 +7,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { auth } from '@/auth';
 
+import { AuthContextProvider } from '../types/context/Authcontext';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -27,10 +29,10 @@ export default async function RootLayout({
         suppressHydrationWarning={true}
       >
         <NextTopLoader showSpinner={false} />
-        <Providers session={session}>
+        <AuthContextProvider>
           <Toaster />
           {children}
-        </Providers>
+        </AuthContextProvider>
       </body>
     </html>
   );
