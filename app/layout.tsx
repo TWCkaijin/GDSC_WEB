@@ -1,39 +1,22 @@
-import Providers from '@/components/layout/providers';
-import { Toaster } from '@/components/ui/toaster';
-// import '@uploadthing/react/styles.css';
-import type { Metadata } from 'next';
-import NextTopLoader from 'nextjs-toploader';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { auth } from '@/auth';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-import { AuthContextProvider } from '../types/context/Authcontext';
-
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: "GDSC x NSYSU",
+  description: "Google Developer Student Club",
 };
 
-export default async function RootLayout({
-  children
-}: {
+export default function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  const session = await auth();
+}>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} overflow-hidden `}
-        suppressHydrationWarning={true}
-      >
-        <NextTopLoader showSpinner={false} />
-        <AuthContextProvider>
-          <Toaster />
-          {children}
-        </AuthContextProvider>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
