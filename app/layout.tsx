@@ -1,12 +1,23 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const segoeUI = localFont({
+  src: [
+    {
+      path: './fonts/segoe-ui/Segoe-UI.ttf',
+      style: 'normal',
+    },
+    {
+      path: './fonts/segoe-ui/Segoe-UI-Italic.ttf',
+      style: 'italic',
+    },
+  ],
+});
 
 export const metadata: Metadata = {
-  title: "GDSC x NSYSU",
-  description: "Google Developer Student Club",
+  title: 'GDSC x NSYSU',
+  description: 'Google Developer Student Club',
 };
 
 export default function RootLayout({
@@ -16,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={segoeUI.className}>{children}</body>
     </html>
   );
 }

@@ -7,13 +7,15 @@ export default function NavBar() {
   return (
     <nav>
       <div className="flex h-16 justify-between items-center px-4 border-b">
-        <div className="flex space-x-8">
+        <div className="flex items-center">
           <Image
             src={'/logo.svg'}
-            width={70}
+            width={50}
             height={70}
             alt="GDSC-NSYSU-logo"
+            className="mr-4"
           />
+          <h2 className="font-bold tracking-tight mr-6">GDSC x NSYSU</h2>
           <Menu />
         </div>
         <div className="flex space-x-6">
