@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container relative hidden min-h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <div className="inset-0 bg-zinc-900 min-h-[100vh] text-white flex flex-col justify-between">
+    <div className="container relative min-h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="inset-0 bg-zinc-900 min-h-[100vh] text-white lg:flex flex-col justify-between hidden">
         <div className="relative z-20 flex items-center text-lg font-medium p-6 ">
           <Image
             src={'/logo.svg'}
@@ -19,10 +19,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Globe />
         </div>
         <div className="ml-auto mr-8 my-8 text-2xl font-bold tracking-tight">
-          Everyone can code
+          Anyone can code
         </div>
       </div>
-      <div className="lg:p-8">
+      <div className="lg:p-8 min-h-[100vh] flex flex-col justify-center">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           {children}
         </div>
