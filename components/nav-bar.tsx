@@ -1,7 +1,7 @@
 import Menu from './menu';
 import Image from 'next/image';
 import { Input } from './ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import ProfileMenu from './profile-menu';
 
 export default function NavBar() {
   return (
@@ -20,10 +20,7 @@ export default function NavBar() {
         </div>
         <div className="flex space-x-6">
           <Input placeholder="Search..." />
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>S</AvatarFallback>
-          </Avatar>
+          <ProfileMenu />
         </div>
       </div>
     </nav>

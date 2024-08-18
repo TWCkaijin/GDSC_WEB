@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import FormInput from '@/components/form/input';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email().min(2).max(50),
@@ -13,6 +14,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -22,12 +24,13 @@ export default function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    router.push('/dashboard');
     console.log(values);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
           name="email"
           placeholder="Enter email..."
