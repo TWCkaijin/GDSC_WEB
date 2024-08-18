@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import { getServerSession } from 'next-auth';
+import AuthProvider from '@/providers/auth-provider';
 
 const segoeUI = localFont({
   src: [
@@ -20,14 +22,18 @@ export const metadata: Metadata = {
   description: 'Google Developer Student Club',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
-      <body className={segoeUI.className}>{children}</body>
+      <AuthProvider session={session}>
+        <body className={segoeUI.className}>{children}</body>
+      </AuthProvider>
     </html>
   );
 }
