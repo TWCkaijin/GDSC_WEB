@@ -12,15 +12,24 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { first } from 'lodash';
 
 export default function ProfileMenu() {
+  const session = useSession();
   const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>S</AvatarFallback>
+          <AvatarImage
+            src={session?.data?.user?.image || ''}
+            alt={session?.data?.user?.name || ''}
+          />
+          <AvatarFallback>
+            {first(session?.data?.user?.name) || 'A'}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
