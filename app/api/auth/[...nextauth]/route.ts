@@ -1,7 +1,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { firebaseAdmin } from '@/lib/firebaseAdmin';
-import { async } from '@firebase/util';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { firebaseApp } from '@/lib/firebase';
+
+const auth = getAuth(firebaseApp);
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -9,17 +11,24 @@ const handler = NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
     CredentialsProvider({
-      credentials: {},
-      authorize: async ({ idToken }: any, _req) => {
-        if (idToken) {
-          try {
-            const decoded = await firebaseAdmin.auth().verifyIdToken(idToken);
-            return { ...decoded };
-          } catch (err) {
-            console.error(err);
-          }
+      name: 'credentials',
+      credentials: {
+        email: { label: 'email', type: 'email', required: true },
+        password: { label: 'password', type: 'password', required: true },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+
+        const user = await signInWithEmailAndPassword(
+          auth,
+          credentials.email,
+          credentials.password
+        );
+        if (user) {
+          return { id: user.user.uid, email: user.user.email };
+        } else {
+          return null;
         }
-        return null;
       },
     }),
   ],

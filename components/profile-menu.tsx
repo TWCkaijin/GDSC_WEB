@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { first } from 'lodash';
 
 export default function ProfileMenu() {
@@ -25,10 +25,12 @@ export default function ProfileMenu() {
         <Avatar>
           <AvatarImage
             src={session?.data?.user?.image || ''}
-            alt={session?.data?.user?.name || ''}
+            alt={session?.data?.user?.name || session?.data?.user?.email || ''}
           />
           <AvatarFallback>
-            {first(session?.data?.user?.name) || 'A'}
+            {first(session?.data?.user?.name) ||
+              first(session?.data?.user?.email) ||
+              'A'}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -51,7 +53,9 @@ export default function ProfileMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => {
+          onClick={e => {
+            e.preventDefault();
+            signOut();
             router.push('/login');
           }}
         >
