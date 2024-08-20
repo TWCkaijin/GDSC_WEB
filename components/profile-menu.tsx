@@ -38,7 +38,12 @@ export default function ProfileMenu() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={(e: any) => {
+              e.preventDefault();
+              router.push('/dashboard');
+            }}
+          >
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
@@ -53,7 +58,7 @@ export default function ProfileMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={e => {
+          onClick={(e: any) => {
             e.preventDefault();
             signOut();
             router.push('/login');

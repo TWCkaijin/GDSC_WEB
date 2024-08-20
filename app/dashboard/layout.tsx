@@ -1,10 +1,19 @@
 import NavBar from '@/components/nav-bar';
+import authOptions from '@/config/auth.config';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-export default function Layout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    redirect('/');
+  }
+
   return (
     <div>
       <NavBar />

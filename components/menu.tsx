@@ -1,11 +1,31 @@
 'use client';
 
+import { Button } from './ui/button';
+import Link from 'next/link';
+import menu from '@/config/menu';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
+
 export default function Menu() {
+  const pathName = usePathname();
+
   return (
     <ul className="flex items-center space-x-4 lg:space-x-6 mx-4 text-sm">
-      <li>Activities</li>
-      <li>Courses</li>
-      <li>Group Projects</li>
+      {menu.map((item, i) => (
+        <li key={i}>
+          <Button variant="link" asChild>
+            <Link
+              href={item.link}
+              className={cn(
+                pathName == item.link ? 'text-black' : 'text-black/50',
+                'hover:text-black'
+              )}
+            >
+              {item.title}
+            </Link>
+          </Button>
+        </li>
+      ))}
     </ul>
   );
 }

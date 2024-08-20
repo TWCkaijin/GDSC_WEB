@@ -8,8 +8,6 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-      <h2>Session</h2>
-      <code>{JSON.stringify(session, null, '\t')}</code>
     </div>
   );
 }
