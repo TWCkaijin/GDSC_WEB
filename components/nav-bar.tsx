@@ -5,7 +5,7 @@ import ProfileMenu from './profile-menu';
 
 export default function NavBar() {
   return (
-    <nav>
+    <nav className="bg-white-400 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100">
       <div className="flex h-16 justify-between items-center px-8 border-b">
         <div className="flex items-center">
           <Image
