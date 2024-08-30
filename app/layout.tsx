@@ -1,21 +1,11 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import './globals.css';
 import { getServerSession } from 'next-auth';
 import AuthProvider from '@/providers/auth-provider';
 
-const segoeUI = localFont({
-  src: [
-    {
-      path: './fonts/segoe-ui/Segoe-UI.ttf',
-      style: 'normal',
-    },
-    {
-      path: './fonts/segoe-ui/Segoe-UI-Italic.ttf',
-      style: 'italic',
-    },
-  ],
-});
+import { Nunito_Sans } from 'next/font/google';
+
+const nunito = Nunito_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'GDSC x NSYSU',
@@ -32,7 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <AuthProvider session={session}>
-        <body className={segoeUI.className}>{children}</body>
+        <body className={nunito.className}>{children}</body>
       </AuthProvider>
     </html>
   );
