@@ -2,7 +2,7 @@
 
 import { Button } from './ui/button';
 import Link from 'next/link';
-import menu from '@/config/menu';
+import { menu } from '@/config/menu';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +18,7 @@ export default function Menu() {
               <Link
                 href={item.link}
                 className={cn(
+                  'font-bold uppercase',
                   pathName == item.link ? 'text-black' : 'text-slate-400'
                 )}
               >

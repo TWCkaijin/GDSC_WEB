@@ -14,15 +14,19 @@ import {
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { first } from 'lodash';
+import { cn } from '@/lib/utils';
+import { AVATAR_FALLBACK } from '@/config/const';
 
-export default function ProfileMenu() {
+export default function ProfileMenu({ className }: { className?: string }) {
   const session = useSession();
   const router = useRouter();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center space-x-2">
-        <Avatar>
+      <DropdownMenuTrigger
+        className={cn('flex items-center space-x-2', className)}
+      >
+        <Avatar className="w-8 h-8">
           <AvatarImage
             src={session?.data?.user?.image || ''}
             alt={session?.data?.user?.name || session?.data?.user?.email || ''}
@@ -30,13 +34,15 @@ export default function ProfileMenu() {
           <AvatarFallback>
             {first(session?.data?.user?.name) ||
               first(session?.data?.user?.email) ||
-              'A'}
+              AVATAR_FALLBACK}
           </AvatarFallback>
         </Avatar>
         <ChevronDown className="w-4 h-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {session?.data?.user?.name || session?.data?.user?.email || ''}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
@@ -51,10 +57,6 @@ export default function ProfileMenu() {
           <DropdownMenuItem>
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Billing</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

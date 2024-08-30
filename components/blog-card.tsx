@@ -12,7 +12,7 @@ export default function BlogCard() {
   return (
     <div className="border border-slate-200 rounded-lg p-4 w-full">
       <div className="flex items-center justify-between">
-        <p className="text-slate-500 text-sm"> May 23rd, 2024</p>
+        <p className="text-slate-500 text-sm">May 23rd, 2024</p>
         <TooltipProvider>
           <Tooltip delayDuration={200}>
             <TooltipTrigger>
@@ -36,7 +36,7 @@ export default function BlogCard() {
         accumsan nulla, a commodo urna. Suspendisse cursus nulla vitae eros
         eleifend, sit amet tincidunt nulla varius.
       </p>
-      <Button className="w-full" variant="secondary">
+      <Button className="w-full text-slate-500" variant="secondary">
         Read more
       </Button>
     </div>

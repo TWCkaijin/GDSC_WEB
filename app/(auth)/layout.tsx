@@ -1,5 +1,9 @@
 import Globe from '@/components/magicui/globe';
 import Image from 'next/image';
+import { Handjet } from 'next/font/google';
+import { cn } from '@/lib/utils';
+
+const handjet = Handjet({ subsets: ['latin'] });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             alt="GDSC-NSYSU-logo"
             className="mr-4"
           />
-          <h2 className="text-3xl font-bold tracking-tight">GDSC x NSYSU</h2>
+          <h2 className={cn(handjet.className, 'text-4xl ')}>GDSC x NSYSU</h2>
         </div>
         <div className="relative flex h-full flex-1 w-full items-center justify-center overflow-hidden rounded-lg px-40 pb-40 pt-8 md:pb-60">
           <Globe />

@@ -3,10 +3,13 @@ interface MenuT {
   title: string;
 }
 
-const menu: MenuT[] = [
+export const menu: MenuT[] = [
   { link: '/activities', title: 'Activities' },
   { link: '/courses', title: 'Courses' },
   { link: '/group-projects', title: 'Group Projects' },
 ];
 
-export default menu;
+export const accountMenu: MenuT[] = [
+  { link: '/profile', title: 'Profile' },
+  { link: '/billing', title: 'Billing' },
+];

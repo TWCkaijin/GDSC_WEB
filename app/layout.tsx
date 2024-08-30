@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import AuthProvider from '@/providers/auth-provider';
 
 import { Nunito_Sans } from 'next/font/google';
+import authOptions from '@/config/auth.config';
 
 const nunito = Nunito_Sans({ subsets: ['latin'] });
 
@@ -17,7 +18,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <html lang="en">
