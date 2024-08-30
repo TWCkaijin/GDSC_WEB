@@ -10,15 +10,8 @@ export default function Menu() {
   const pathName = usePathname();
 
   return (
-    <ul className="flex items-center space-x-4 lg:space-x-6 mx-4 text-sm">
+    <ul className="hidden lg:flex items-center space-x-4 lg:space-x-6 mx-4 text-sm">
       {menu.map((item, i) => {
-        console.log(
-          'DEBUG ~ Menu ~ pathName:',
-          pathName,
-          item.link,
-          item.link == pathName
-        );
-        // console.log('DEBUG ~ Menu ~ link:', item.link);
         return (
           <li key={i}>
             <Button variant="link" asChild>

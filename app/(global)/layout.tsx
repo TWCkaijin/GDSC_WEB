@@ -8,7 +8,9 @@ export default function Layout({
   return (
     <div>
       <NavBar />
-      <main className="flex-1 space-y-4 p-8 pt-6">{children}</main>
+      <main className="relative mx-auto max-w-screen-xl gap-x-6 px-4 py-10 md:flex md:flex-row md:py-10">
+        {children}
+      </main>
     </div>
   );
 }

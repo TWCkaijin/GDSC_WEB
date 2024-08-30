@@ -1,6 +1,6 @@
 'use client';
 
-import { CreditCard, LogOut, Settings, User } from 'lucide-react';
+import { ChevronDown, CreditCard, LogOut, Settings, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import {
   DropdownMenu,
@@ -21,7 +21,7 @@ export default function ProfileMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="flex items-center space-x-2">
         <Avatar>
           <AvatarImage
             src={session?.data?.user?.image || ''}
@@ -33,6 +33,7 @@ export default function ProfileMenu() {
               'A'}
           </AvatarFallback>
         </Avatar>
+        <ChevronDown className="w-4 h-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
