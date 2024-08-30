@@ -83,51 +83,65 @@ export default function MobileMenu() {
             })}
           </ul>
           <Separator className="my-4" />
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="account" className="border-none">
-              <AccordionTrigger className="bg-slate-100 px-4 rounded-md">
-                {session?.data?.user?.name || session?.data?.user?.email || ''}
-              </AccordionTrigger>
-              <AccordionContent className="mt-4">
-                <ul className="flex flex-col space-y-2 mt-4">
-                  {accountMenu.map((item, i) => {
-                    return (
-                      <li key={i}>
-                        <Button variant="link" asChild>
-                          <Link
-                            onClick={() => setIsOpen(false)}
-                            href={item.link}
-                            className={cn(
-                              'font-bold uppercase text-xl',
-                              pathName == item.link
-                                ? 'text-black'
-                                : 'text-slate-400'
-                            )}
-                          >
-                            {item.title}
-                          </Link>
-                        </Button>
-                      </li>
-                    );
-                  })}
-                  <li>
-                    <Button
-                      variant="link"
-                      className="text-xl text-slate-400"
-                      onClick={(e: any) => {
-                        setIsOpen(false);
-                        e.preventDefault();
-                        signOut();
-                        router.push('/login');
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </li>
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {Boolean(session?.data?.user) ? (
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="account" className="border-none">
+                <AccordionTrigger className="bg-slate-100 px-4 rounded-md">
+                  {session?.data?.user?.name ||
+                    session?.data?.user?.email ||
+                    ''}
+                </AccordionTrigger>
+                <AccordionContent className="mt-4">
+                  <ul className="flex flex-col space-y-2 mt-4">
+                    {accountMenu.map((item, i) => {
+                      return (
+                        <li key={i}>
+                          <Button variant="link" asChild>
+                            <Link
+                              onClick={() => setIsOpen(false)}
+                              href={item.link}
+                              className={cn(
+                                'font-bold uppercase text-xl',
+                                pathName == item.link
+                                  ? 'text-black'
+                                  : 'text-slate-400'
+                              )}
+                            >
+                              {item.title}
+                            </Link>
+                          </Button>
+                        </li>
+                      );
+                    })}
+                    <li>
+                      <Button
+                        variant="link"
+                        className="text-xl text-slate-400"
+                        onClick={(e: any) => {
+                          setIsOpen(false);
+                          e.preventDefault();
+                          signOut();
+                          router.push('/login');
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    </li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          ) : (
+            <Button
+              onClick={() => {
+                setIsOpen(false);
+                router.push('/login');
+              }}
+              className="px-4 flex items-center justify-center uppercase text-xl w-full py-2"
+            >
+              Login
+            </Button>
+          )}
         </div>
       </DrawerContent>
     </Drawer>
