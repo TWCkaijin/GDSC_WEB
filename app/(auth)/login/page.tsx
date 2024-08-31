@@ -2,6 +2,7 @@ import Image from 'next/image';
 import SeparatorWithText from '@/components/separator-with-text';
 import LoginForm from './components/login-form';
 import GoogleLoginButton from './components/google-login-btn';
+import SparklesText from '@/components/magicui/sparkles-text';
 
 export default function Page() {
   return (
@@ -9,12 +10,16 @@ export default function Page() {
       <div className="text-center flex flex-col items-center justify-center">
         <Image
           src={'/logo.svg'}
-          width={150}
-          height={150}
+          width={100}
+          height={100}
           alt="GDSC-NSYSU-logo"
-          className="mb-4 block lg:hidden"
+          className="mb-8 block lg:hidden"
         />
-        <h1 className="text-2xl font-semibold tracking-tight">Welcome back!</h1>
+        <SparklesText
+          text="Welcome back!"
+          className="text-3xl font-semibold"
+          sparklesCount={3}
+        />
         <p className="text-sm text-muted-foreground">
           Enter your email and password below to login
         </p>
