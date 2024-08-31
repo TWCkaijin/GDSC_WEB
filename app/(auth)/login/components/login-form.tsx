@@ -38,7 +38,7 @@ export default function LoginForm() {
     })
       .then(() => {
         setFormLoading(false);
-        router.push('/dashboard');
+        router.push('/settings');
       })
       .catch(err => {
         console.log('DEBUG ~ onSubmit ~ err:', err);

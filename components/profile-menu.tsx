@@ -48,7 +48,7 @@ export default function ProfileMenu({ className }: { className?: string }) {
           <DropdownMenuItem
             onClick={(e: any) => {
               e.preventDefault();
-              router.push('/dashboard');
+              router.push('/settings');
             }}
           >
             <User className="mr-2 h-4 w-4" />

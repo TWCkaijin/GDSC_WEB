@@ -1,10 +1,22 @@
+'use client';
+
 import Image from 'next/image';
 import SeparatorWithText from '@/components/separator-with-text';
 import LoginForm from './components/login-form';
 import GoogleLoginButton from './components/google-login-btn';
 import SparklesText from '@/components/magicui/sparkles-text';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const session = useSession();
+  const router = useRouter();
+
+  if (Boolean(session?.data?.user)) {
+    router.push('/activities');
+    return;
+  }
+
   return (
     <div className="flex flex-col space-y-4">
       <div className="text-center flex flex-col items-center justify-center">
