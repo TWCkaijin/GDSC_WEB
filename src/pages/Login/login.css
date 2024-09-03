@@ -110,7 +110,7 @@
     outline: none;
     background-color: white;
     box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     color: #2c444e;
     cursor: pointer;
@@ -118,6 +118,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-top: var(--dl-space-space-twounits);
 }
 
 .google_btn > img{
@@ -162,6 +163,28 @@
     height: 3rem;
 }
 
+
+/* 新增過場動畫的樣式 */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.spinner {
+    border: 6px dashed #f3f3f3; /* Light grey */
+    border-top: 6px dashed #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 
 @media (max-width: 600px) {

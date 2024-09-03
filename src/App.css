@@ -1,17 +1,44 @@
+:root {
+  --dl-size-size-large: 144px;
+  --dl-size-size-small: 48px;
+  --dl-size-size-medium: 96px;
+  --dl-size-size-xlarge: 192px;
+  --dl-size-size-xsmall: 16px;
+  --dl-space-space-unit: 16px;
+  --dl-size-size-xxlarge: 288px;
+  --dl-size-size-maxwidth: 1400px;
+  --dl-color-theme-accent1: #FFFFFF;
+  --dl-color-theme-accent2: #F5D1B0;
+  --dl-radius-radius-round: 50%;
+  --dl-color-theme-primary1: #BF4408;
+  --dl-color-theme-primary2: #E65103;
+  --dl-space-space-halfunit: 8px;
+  --dl-space-space-sixunits: 96px;
+  --dl-space-space-twounits: 32px;
+  --dl-radius-radius-radius2: 2px;
+  --dl-radius-radius-radius4: 4px;
+  --dl-radius-radius-radius8: 8px;
+  --dl-space-space-fiveunits: 80px;
+  --dl-space-space-fourunits: 64px;
+  --dl-color-theme-secondary1: #FFFFFF;
+  --dl-color-theme-secondary2: #FBF1EB;
+  --dl-space-space-threeunits: 48px;
+  --dl-color-theme-neutral-dark: #191818;
+  --dl-radius-radius-cardradius: 8px;
+  --dl-color-theme-neutral-light: #FBFAF9;
+  --dl-radius-radius-imageradius: 8px;
+  --dl-radius-radius-inputradius: 24px;
+  --dl-radius-radius-buttonradius: 24px;
+  --dl-space-space-oneandhalfunits: 24px;
+}
+
 body, html {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #171717; /* 深色背景 */
-  color: #61dafb; /* 文字顏色 */
-  overflow-x: hidden; /* 防止水平滾動 */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* 使 body 高度至少佔滿視口 */
-}
-
-.App {
-  flex: 1;
+  background-color: #171717; 
+  color: #61dafb; 
+  overflow-x: hidden; 
   display: flex;
   flex-direction: column;
   min-height: 100vh; 
@@ -22,68 +49,6 @@ body, html {
   padding: 20px;
 }
 
-/* Header 樣式 */
-.header {
-  position:fixed;
-  top:0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #350505; 
-  color: #fff; 
-  padding: 0; 
-  margin: 0; 
-  width: 100%; 
-  height: 80px;
-  box-sizing: border-box; 
-}
 
-.header img {
-  height: 40px; /* 標誌高度 */
-}
-
-.header .logo {
-  display: flex;
-  align-items: center;
-}
-
-.header .logo h1 {
-  margin: 0;
-  margin-left: 10px;
-}
-
-.header .user-actions {
-  display: flex;
-  align-items: center;
-}
-
-.header .user-actions img {
-  height: 40px; /* 使用者頭像高度 */
-  border-radius: 50%; /* 圓形頭像 */
-  margin-left: 10px;
-}
-
-.header .user-actions button {
-  background: transparent;
-  border: none;
-  color: #61dafb;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* Footer 樣式 */
-.footer {
-  background-color: #350505; /* 黑色背景 */
-  color: #fff; /* 文字顏色 */
-  padding: 20px;
-  text-align: center;
-  bottom: 0;
-  width: 100%;
-}
-
-.footer-content a {
-  margin: 0 10px;
-}
 
   

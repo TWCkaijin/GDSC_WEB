@@ -1,50 +1,59 @@
 // src/components/Header.js
 import React from 'react';
 import './Header.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { auth } from "../../config/firebase"
 import { useMediaQuery } from 'react-responsive';
 
 const Header = () => {
   const location = useLocation(); 
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-  function handlenavigatebutton() {
+  const navigate = useNavigate();
 
+  function handlenavigatebutton() {
+    
     if (location.pathname === "/Home") {
       const logout = async () => {
         await auth.signOut();
+        localStorage.removeItem("userAuthData");
+        navigate("/");
       }
       return (
-        <Link to="/">
-          <button className="header-button" onClick={logout}>Log out</button>
-        </Link>
+          <button className="header-button" onClick={logout}><span>Log out</span></button>
       )
     } else if (location.pathname === '/' && !auth?.currentUser) {
       return (
-        <Link to="/login">
-          <button className="header-button">Login</button>
-        </Link>
+          <button className="header-button"><span>Login</span></button>
       )
     }else{
       return (
-        <Link to="/Home">
-          <button className="header-button">Home</button>
-        </Link>
+          <button className="header-button"><span>Home</span></button>
       )
+    }
+  }
+
+  const onTitleClick = () => {
+    if (location.pathname === "/Home") {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    });
+    } else {
+      navigate("/Home");
     }
   }
 
 
   return (
     <header className="header">
-      <Link to="/Home">
-      <div className='logo-container' style={{ display: 'flex', alignItems: 'center' }}>
+      <div className='logo-container' style={{ display: 'flex', alignItems: 'center' }} onClick={onTitleClick}>
         <div className="logo">
           <img src="/images/GDSC.png" alt="Club Logo" />    
         </div>
         {isMobile ? (
           <>
-            <div className="club-name">
+            <div className="club-name" >
               <h1>GDSC</h1>
               <h2>NSYSU</h2>
             </div>
@@ -58,10 +67,8 @@ const Header = () => {
           </>
         )}
       </div>
-      </Link>
       <div className="user-info">
         { handlenavigatebutton()}
-        <img src={auth?.currentUser ? auth?.currentUser.photoURL : 'https://via.placeholder.com/40'} alt="User Avatar" className="user-avatar" />
       </div>
     </header>
   );

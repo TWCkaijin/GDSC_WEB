@@ -1,73 +1,86 @@
-import React, { useEffect, useState } from 'react';
+import { auth,db } from "../../config/firebase"
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../../config/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import ReactDOMServer from "react-dom/server";
+
+import { doc,setDoc, getDoc } from "firebase/firestore";
+import axios from "axios";
+
 import QRCode from "react-qr-code";
 import Swal from "sweetalert2";
-import { Helmet } from 'react-helmet';
 
-/* import './home.css'; */ // Assuming styles are merged here
-import './web.css'; // Import styles from web.js
+import "./home.css"
 
-const Home = () => {
+
+const Home = () => {	
 	const [loading, setLoading] = useState(true);
 	const [UserData, setUserData] = useState(null);
 	const navigate = useNavigate();
 
+
 	const logout = async () => {
 		await auth.signOut();
 		localStorage.removeItem("userData");
-		setUserData(null);
+        setUserData(null);
 		navigate("/");
 	};
+
+
+
+
 
 	const ConnectDiscord = () => {
 		const user = auth?.currentUser;
 		console.log("logging discord");
 		try {
-		const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=1261740789650948099&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5050%2Fauth%2Fdiscord%2Fcallback&scope=identify&state=${user.uid}`;
-		window.location.href = discordAuthUrl;
-		} catch (error) {
-		console.error("Error creating user on server:", error);
-		}
-	};
+			const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=1261740789650948099&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5050%2Fauth%2Fdiscord%2Fcallback&scope=identify&state=${user.uid}`;
+			window.location.href = discordAuthUrl;
+			console.log("User created on server:", response.data);
 
-	const OnCheckInClick = () => {
-		const qrCodeHtml = ReactDOMServer.renderToString(<QRCode value={"example.com"} />); // Replace with UserData.uid
-		Swal.fire({
-		title: "簽到QRcode",
-		html: qrCodeHtml,
-		confirmButtonText: "確定",
-		background: "#20212d",
-		width: "25rem",
-		});
-	};
+		} catch (error) {
+			console.error("Error creating user on server:", error);
+		}
+	}
+
+
+	const OnCheckInClick =() => {
+		const qrCodeHtml = ReactDOMServer.renderToString(<QRCode value={"example.com"} />); /* UserData.uid */
+        Swal.fire({
+            title: "簽到QRcode",
+            html: qrCodeHtml,
+            confirmButtonText: "確定",
+			background: "#20212d",
+			width: "25rem",
+        });
+	}
+
 
 	const getUserProfile = async () => {
 		const userDocRef = doc(db, "UserProfile", auth?.currentUser.uid);
 		const userDoc = await getDoc(userDocRef);
 		if (userDoc.exists()) {
-		return userDoc.data();
+			console.log("User data:", userDoc.data());
+			return userDoc.data();
 		} else {
-		return null;
+			return null;
 		}
-	};
+	}
 
 	useEffect(() => {
 		const fetchUserData = async () => {
-		setLoading(true);
-		const userData = await getUserProfile();
-		setUserData(userData);
-		setLoading(false);
+			setLoading(true);
+			const userData = await getUserProfile();
+			setUserData(userData);
+			setLoading(false);
 		};
 		fetchUserData();
+		console.log("Effect", UserData);
 	}, []);
 
 
 	function MemberStatusBlock (){
 		return (
-		<>
+		<div className="status-list">
 			<div className="member-status-title" >成員狀態</div>
 			<div className="status-container">
 				<div className="status-column">
@@ -119,6 +132,13 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
+		</div>
+		)
+	}
+
+	function ProjectStatusBlock (){
+		return(
+		<>
 		</>
 		)
 	}
@@ -126,55 +146,35 @@ const Home = () => {
 
 	return (
 		<div className="homepage">
-			<Helmet>
-				<title>GDSC NSYSU - Home</title>
-			</Helmet>
 			{loading ? (
-				<div className="loading-spinner">
-					<div className="spinner"></div>
-				</div>
-				) : (
-				<>
-				<div className="web-web">
-					<div className="web-profile">
-						<div className="web-photo-and-name">
-							<img
-							alt="Profile"
-							src={UserData?.Avatar}
-							className="web-ellipse1"
-							/>
-							<div className="web-discord" onClick={ConnectDiscord}>
-								<span className="web-text12">
-									<span>Connect to Discord</span>
-								</span>
-							</div>
-						</div>
-						<div className="web-personal-info">
-							{MemberStatusBlock()}
-						</div>
+                <div className="loading-spinner">
+                    {/* 這裡可以放置您的過場動畫，例如一個旋轉的圖標 */}
+                    <div className="spinner"></div>
+                </div>
+            ) : (
+			<>
+				<div className="main_box-list">
+					<div className="main_box">
+						<img src="https://via.placeholder.com/40" alt="action"/>
+						<p>社課報名(目前尚不需報名)</p>
 					</div>
-
-					<div className="web-info">
-						<div className="web-frame1">
-							<span className="web-text26">
-								<span>社課報名</span>
-							</span>
-						</div>
-						<div className="web-frame2">
-							<span className="web-text28">
-								<span>課程列表</span>
-							</span>
-						</div>
+					<div className="main_box" href="#box">
+						<img src="https://via.placeholder.com/40" alt="action"/>
+						<p>課程列表(尚未啟用)</p>
 					</div>
-
-					<button className="floating-button" id="_signin_floatingButton" onClick={OnCheckInClick}>
-						課程簽到
-					</button>
+					<div className="cutline"></div>
+					<div className="main_box" onClick={ConnectDiscord} >
+						<img src="/images/discord_icon.png" alt="action"/>
+						<p>連結至 Discord</p>
+					</div>
+					<div className="cutline"></div>
+					{MemberStatusBlock()}
 				</div>
-				</>
+				<button className="floating-button" id="_signin_floatingButton" onClick={OnCheckInClick}>課程簽到</button>
+			</>
 			)}
 		</div>
 	);
-};
+}
 
 export default Home;

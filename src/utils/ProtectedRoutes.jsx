@@ -4,7 +4,7 @@ import { auth } from "../config/firebase";
 
 
 const ProtectedRoutes = ({ user }) => {
-    return auth?.currentUser?.displayName ? <Outlet/> : <Navigate to="login"/>;
+    return auth?.currentUser?.displayName ? <Outlet/> : <Navigate to="/"/>;
 }
 
 
