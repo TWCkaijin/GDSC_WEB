@@ -4,8 +4,11 @@ import { auth, provide,db } from "../../config/firebase";
 import {signInWithPopup, signOut, signInWithCustomToken, onAuthStateChanged} from "firebase/auth";
 import { useNavigate , Link} from "react-router-dom";
 import { useEffect, useState} from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc,updateDoc } from "firebase/firestore";
 import axios from "axios";
+
+import Loading from "../components/Loading";
+
 
 function Login() {
 	const navigate = useNavigate();
@@ -17,16 +20,17 @@ function Login() {
 		const result = await signInWithPopup(auth, provide);
 		const user = result.user;
 
+		
+		const userDocRef = doc(db, "UserProfile", user.uid);
+        const userDoc = await getDoc(userDocRef);
+		
 		const userAuthData = {
 			uid: user.uid,
 			displayName: user.displayName,
 			email: user.email,
 			photoURL: user.photoURL,
 		};
-		localStorage.setItem("userAuthData", JSON.stringify(userAuthData));
-		const userDocRef = doc(db, "UserProfile", user.uid);
-        const userDoc = await getDoc(userDocRef);
-		
+
 		if (!userDoc.exists()) {
 			try{
 				createUserOnServer(userAuthData);
@@ -36,6 +40,11 @@ function Login() {
 		}else{
 			console.log("user exists");
 		}
+
+
+
+		localStorage.setItem("userAuthData", JSON.stringify(userAuthData));
+		updateLoginTime();
 		setLoading(false);
 		navigate("/Home");
 	};
@@ -60,10 +69,15 @@ function Login() {
 		setLoading(false);
 	};
 
-	
+	const updateLoginTime = async () => {
+		const userDocRef = doc(db, "UserProfile", auth.currentUser.uid);
+		await updateDoc(userDocRef, {
+			LastLogin: new Date(),
+		});
+	}
+
 	useEffect(() => {
 		const storedUserData = localStorage.getItem("userAuthData");
-		//依照localstorage存取的token直接登入//
 		if (storedUserData) {
 			setLoading(true);
             console.log("try auto login");
@@ -74,6 +88,7 @@ function Login() {
                 } else {
                     await signInWithCustomToken(auth, parsedUserData.token)
                         .then(() => {
+							updateLoginTime();
 							setLoading(false);
                             navigate("/Home");
                         })
@@ -90,12 +105,7 @@ function Login() {
 
 	return (
 		<div className="login-parent-container">
-			{loading ? (
-                <div className="loading-spinner">
-                    {/* 這裡可以放置您的過場動畫，例如一個旋轉的圖標 */}
-                    <div className="spinner"></div>
-                </div>
-            ) : (
+			{loading ? <Loading/> : (
 				<div className="form_container">
 					<div className="login-backward">
 						{/* <Link to="/">
@@ -114,11 +124,11 @@ function Login() {
 						<img src="./images/google.png" alt="google icon" />
 						<span>Sign in with Google</span>
 					</button>
-					<div className="login-other-option">
+					{/* <div className="login-other-option">
 							<Link to="">
 								<p className="login-other-option-button">admin login</p>
 							</Link>
-					</div>
+					</div> */}
 				</div>
 			)}
 		</div>

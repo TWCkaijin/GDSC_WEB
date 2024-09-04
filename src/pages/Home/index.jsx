@@ -34,13 +34,30 @@ const Home = () => {
 	};
 
 	const OnCheckInClick = () => {
-		const qrCodeHtml = ReactDOMServer.renderToString(<QRCode value={"example.com"} />); // Replace with UserData.uid
+		const qrCodeHtml = ReactDOMServer.renderToString(
+		<>
+			<QRCode value={"arbhtyrjuiudmtsynratbfbtnystdu"} 
+				bgColor='#ffffff'
+				fgColor="#000000"
+				level="Q"
+				includeMargin={true}
+			/>
+			<br/>
+			<span>ffffff</span>
+		</>); // Replace with UserData.uid
 		Swal.fire({
 		title: "簽到QRcode",
 		html: qrCodeHtml,
-		confirmButtonText: "確定",
+		text:"this is text",
+		confirmButtonText: "關閉",
 		background: "#20212d",
 		width: "25rem",
+		customClass: {
+			title: "swal-title",
+			htmlContainer: "swal-html-container",
+			popup: "swal-popup",
+			confirmButton: "swal-confirm-button",
+		},
 		});
 	};
 
@@ -48,9 +65,9 @@ const Home = () => {
 		const userDocRef = doc(db, "UserProfile", auth?.currentUser.uid);
 		const userDoc = await getDoc(userDocRef);
 		if (userDoc.exists()) {
-		return userDoc.data();
+			return userDoc.data();
 		} else {
-		return null;
+			return null;
 		}
 	};
 
@@ -68,61 +85,87 @@ const Home = () => {
 	function MemberStatusBlock (){
 		return (
 		<>
-			<div className="member-status-title" >成員狀態</div>
-			<div className="status-container">
-				<div className="status-column">
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">會員身分</div>
-							<div className="status-box-text">
-								{UserData ? (UserData.MemberInfo?.MemberType) : "Load Error"}
-							</div>
-						</div>
-					</div>
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">到課次數</div>
-							<div className="status-box-text">
-								{UserData?.CourseStatus ? (UserData?.CourseStatus?.Attendence) : "Load Error"}
-							</div>
-						</div>
-					</div>
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">會員身分到期日</div>
-							<div className="status-box-text">
-								{UserData?.MemberInfo? UserData?.MemberInfo?.QualificationExpiration||"No Info" :"Load Error"}
-							</div>
-						</div>
+			<div className="status-box">
+				<div className="status-box-title">會員身分</div>
+				<div className="status-box-text">
+					{UserData ? (UserData.MemberInfo?.MemberType) : "Load Error"}
+				</div>
+			</div>
+			
+
+			<div className="status-box">
+				<div className="status-box-title">到課次數</div>
+				<div className="status-box-text">
+					{UserData?.CourseStatus ? (UserData?.CourseStatus?.Attendence) : "Load Error"}
+				</div>
+			</div>
+			{UserData.MemberInfo?.MemberType==="spectator"?null:
+			<>
+				<div className="status-box">
+					<div className="status-box-title">會員身分到期日</div>
+					<div className="status-box-text">
+						{UserData?.MemberInfo? UserData?.MemberInfo?.QualificationExpiration||"No Info" :"Load Error"}
 					</div>
 				</div>
-				<div className="status-column">
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">繳費狀態</div>
-							<div className="status-box-text">
-								{UserData?.Payment?.Amount + " / " + UserData?.Payment?.Required}
-							</div>
-						</div>
-					</div>
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">專案組狀態</div>
-							<div className="status-box-text">{"Null"}</div>
-						</div>
-					</div>
-					<div className="status-row">
-						<div className="status-box">
-							<div className="status-box-title">上次登入</div>
-							<div className="status-box-text">{"Time-null"}</div>
-						</div>
-					</div>
+				<div className="status-box">
+					<div className="status-box-title">專案組狀態</div>
+					<div className="status-box-text">{"Null"}</div>
+				</div>
+			</>
+			}
+			
+			<div className="status-box">
+				<div className="status-box-title">繳費狀態</div>
+				<div className="status-box-text">
+					{UserData?.Payment?.Amount + " / " + UserData?.Payment?.Required}
+				</div>
+			</div>
+			
+			<div className="status-box">
+				<div className="status-box-title">上次登入</div>
+				<div className="status-box-text">
+					{ UserData?.LastLogin ? 
+						(() => {
+							const timestamp = UserData.LastLogin;
+        const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+        return isNaN(date.getTime()) ? "Invalid Date" : date.toLocaleString('zh-TW', {
+			year:"numeric",
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+						})() : "Load Error"
+					}
 				</div>
 			</div>
 		</>
 		)
 	}
 
+	function ProjectStatusBlock(){
+		
+	}
+
+
+	function discordButton(){
+		if(!UserData?.Discord){
+			return (
+				<div className="web-discord" onClick={ConnectDiscord}>
+					<img src="/images/discord-icon-black.webp" alt="Discord Logo" />
+					<span>Connect to Discord</span>
+				</div>
+			)
+		}else{
+			return(
+				<div className="web-discord">
+					<img src={`https://cdn.discordapp.com/avatars/${UserData.Discord.UserId}/${UserData.Discord.Avatar}.png`} alt="Discord Logo" />
+					<span className="discord-user-name">{UserData.Discord.UserName}</span>
+				</div>
+			)
+		}
+	}
 
 	return (
 		<div className="homepage">
@@ -143,14 +186,15 @@ const Home = () => {
 							src={UserData?.Avatar}
 							className="web-ellipse1"
 							/>
-							<div className="web-discord" onClick={ConnectDiscord}>
-								<span className="web-text12">
-									<span>Connect to Discord</span>
-								</span>
-							</div>
+							{discordButton()}
 						</div>
 						<div className="web-personal-info">
-							{MemberStatusBlock()}
+							<div className="member-status-title" >
+								成員狀態
+							</div>
+							<div className="status-container">
+								{MemberStatusBlock()}
+							</div>
 						</div>
 					</div>
 
@@ -167,7 +211,7 @@ const Home = () => {
 						</div>
 					</div>
 
-					<button className="floating-button" id="_signin_floatingButton" onClick={OnCheckInClick}>
+					<button className="floating-button" onClick={OnCheckInClick}>
 						課程簽到
 					</button>
 				</div>
