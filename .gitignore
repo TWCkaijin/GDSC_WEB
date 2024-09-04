@@ -25,3 +25,7 @@ dist-ssr
 *.sln
 *.sw?
 .github
+
+# build output
+/build
+/.firebase

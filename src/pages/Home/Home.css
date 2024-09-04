@@ -106,17 +106,16 @@
   align-self: stretch;
   align-items: center;
   border-radius: 25px;
-  flex-direction: row;
+
   justify-content: center;
   background-color: rgba(92, 92, 92, 1);
-  flex-direction: column;
-  padding:1rem
+  flex-direction: row;
+  padding: 25px;
 }
 
 .member-status-title {
   position: relative;
   display: flex;
-  margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -245,7 +244,7 @@
   bottom: 1.5rem;
   right: 1.5rem;
   width: auto;
-  height: 4rem;
+  height: auto;
   background-color: #f39c12;
   color: white;
   border: none;
@@ -253,6 +252,8 @@
   cursor: pointer;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   opacity:0.5;
+  border-radius: 1rem;
+  padding:1rem 1rem;
 }
 
 .floating-button:hover {
@@ -264,6 +265,10 @@
   color: #ff0000;
 }
 
+.swal-title{
+  color: #ffffff;
+}
+
 
 @media(max-width: 991px) {
   .web-web {
@@ -273,6 +278,10 @@
 
   .web-photo-and-name {
     margin-left: 0px;
+  }
+
+  .status-container{
+    grid-template-columns: 1fr 1fr;
   }
 
 }

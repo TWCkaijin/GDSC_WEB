@@ -6,14 +6,17 @@ import ReactDOMServer from "react-dom/server";
 import QRCode from "react-qr-code";
 import Swal from "sweetalert2";
 import { Helmet } from 'react-helmet';
-
+import { useMediaQuery } from 'react-responsive';
 /* import './home.css'; */ // Assuming styles are merged here
-import './web.css'; // Import styles from web.js
+import './Home.css'; // Import styles from web.js
 
 const Home = () => {
+	const navigate = useNavigate();
+	const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+	try{
 	const [loading, setLoading] = useState(true);
 	const [UserData, setUserData] = useState(null);
-	const navigate = useNavigate();
+	
 
 	const logout = async () => {
 		await auth.signOut();
@@ -36,22 +39,23 @@ const Home = () => {
 	const OnCheckInClick = () => {
 		const qrCodeHtml = ReactDOMServer.renderToString(
 		<>
-			<QRCode value={"arbhtyrjuiudmtsynratbfbtnystdu"} 
+			<QRCode value={UserData?.uid} 
 				bgColor='#ffffff'
-				fgColor="#000000"
+				fgColor="var(--dl-component-box-color)"
 				level="Q"
 				includeMargin={true}
+				size={200}
 			/>
-			<br/>
-			<span>ffffff</span>
-		</>); // Replace with UserData.uid
+		</>);
+
+
 		Swal.fire({
 		title: "簽到QRcode",
 		html: qrCodeHtml,
 		text:"this is text",
 		confirmButtonText: "關閉",
-		background: "#20212d",
-		width: "25rem",
+		background: "var(--dl-component-box-color)",
+		width: "auto",
 		customClass: {
 			title: "swal-title",
 			htmlContainer: "swal-html-container",
@@ -91,8 +95,6 @@ const Home = () => {
 					{UserData ? (UserData.MemberInfo?.MemberType) : "Load Error"}
 				</div>
 			</div>
-			
-
 			<div className="status-box">
 				<div className="status-box-title">到課次數</div>
 				<div className="status-box-text">
@@ -148,6 +150,26 @@ const Home = () => {
 		
 	}
 
+	function CourseListBlock(){
+		return (
+			<div className="web-frame1">
+				<span className="web-text26">
+					<span>社課報名</span>
+				</span>
+			</div>
+		)
+	}
+
+	function ProjectListBlock(){
+		return (
+			<div className="web-frame2">
+				<span className="web-text28">
+					<span>課程列表</span>
+				</span>
+			</div>
+		)
+	}
+
 
 	function discordButton(){
 		if(!UserData?.Discord){
@@ -197,28 +219,37 @@ const Home = () => {
 							</div>
 						</div>
 					</div>
-
 					<div className="web-info">
-						<div className="web-frame1">
-							<span className="web-text26">
-								<span>社課報名</span>
-							</span>
-						</div>
-						<div className="web-frame2">
-							<span className="web-text28">
-								<span>課程列表</span>
-							</span>
-						</div>
 					</div>
-
-					<button className="floating-button" onClick={OnCheckInClick}>
-						課程簽到
-					</button>
+					{isMobile ? <button className="floating-button" onClick={OnCheckInClick}>簽到</button> : null}
 				</div>
 				</>
 			)}
 		</div>
 	);
+	}catch (fatalerrors){
+		console.error(fatalerrors);
+		
+		Swal.fire({
+			title: "Fatal Error",
+			icon: "error",
+			text: "發生錯誤，請重新登入並連繫開發者",
+			confirmButtonText: "關閉",
+			background: "white",
+			width: "25rem",
+			customClass: {
+				title: "fatalerror-title",
+				text: "fatalerror-text",
+				popup: "swal-popup",
+				confirmButton: "swal-confirm-button",
+			},
+			}).then((result) => {
+				if(result.isConfirmed){
+					localStorage.removeItem("userAuthData");
+					navigate("/");
+				}
+			});
+	}
 };
 
 export default Home;

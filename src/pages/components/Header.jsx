@@ -50,15 +50,13 @@ const Header = () => {
         {isMobile ? (
           <>
             <div className="club-name" >
-              <h1>GDSC</h1>
-              <h2>NSYSU</h2>
+              <h1>GDSC<br/>NSYSU</h1>
             </div>
           </>
         ):(
           <>
             <div className="club-name">
-              <h1>Google Developer Student Club</h1>
-              <h2>NSYSU</h2>
+              <h1>Google Developer Student Club<br/>NSYSU</h1>
             </div>
           </>
         )}
