@@ -1,12 +1,10 @@
 import React from "react";
 import{ Outlet, Navigate } from "react-router-dom";
-import { auth } from "../config/firebase";
+import {useAuth} from "./authContext";
 
 
-const ProtectedRoutes = ({ user }) => {
-    return auth?.currentUser?.displayName ? <Outlet/> : <Navigate to="/"/>;
+const ProtectedRoutes = () => {
+    const {loginState} = useAuth();
+    return loginState  ? <Outlet/> : <Navigate to="/"/>;
 }
-
-
-
 export default ProtectedRoutes;
