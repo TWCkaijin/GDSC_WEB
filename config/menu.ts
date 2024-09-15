@@ -11,5 +11,5 @@ export const menu: MenuT[] = [
 
 export const accountMenu: MenuT[] = [
   { link: '/profile', title: 'Profile' },
-  { link: '/billing', title: 'Billing' },
+  // { link: '/billing', title: 'Billing' },
 ];
