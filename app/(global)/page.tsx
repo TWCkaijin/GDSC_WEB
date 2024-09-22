@@ -9,7 +9,7 @@ export default function Page() {
   router.push('/activities');
 
   return (
-    <main className="min-h-[70vh] flex items-center justify-center">
+    <main className="min-h-[70vh] flex items-center justify-center min-w-screen">
       <LoaderCircle className="w-8 h-8 animate-spin" />
     </main>
   );
